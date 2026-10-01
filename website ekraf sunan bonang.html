@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jejak Ulama — Warisan untuk Generasi</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@500;600;700&family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+
+<style>
+:root{
+  --golden:#E8D1A7;
+  --olive:#9D9167;
+  --caramel:#84592B;
+  --wine:#743014;
+  --cocoa:#442D1C;
+  --cream:#F7EBD3;
+  --white:#FFF9EE;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--golden);
+  color:var(--cocoa);
+  font-family:"Libre Baskerville",serif;
+  line-height:1.7;
+}
+
+img{
+  width:100%;
+  display:block;
+  object-fit:cover;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+/* =========================
+   COVER PEMBUKA
+========================= */
+
+.intro-cover{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:#23150d;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  opacity:1;
+  visibility:visible;
+  transition:
+    opacity 1.2s ease,
+    visibility 1.2s ease;
+}
+
+.intro-cover.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro-cover::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      rgba(35,21,12,.58),
+      rgba(35,21,12,.82)
+    ),
+    url("apa.jpeg") center/cover no-repeat;
+  animation:coverZoom 3s ease forwards;
+}
+
+.intro-cover::after{
+  content:"";
+  position:absolute;
+  inset:25px;
+  border:1px solid rgba(232,209,167,.55);
+  pointer-events:none;
+}
+
+@keyframes coverZoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.08);}
+}
+
+.cover-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  width:min(850px,90%);
+  animation:coverText 1.5s ease;
+}
+
+@keyframes coverText{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.cover-small{
+  font-family:"Montserrat",sans-serif;
+  font-size:11px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+.cover-script{
+  font-family:"Allura",cursive;
+  color:var(--golden);
+  font-size:48px;
+  line-height:1;
+}
+
+.cover-title{
+  font-family:"Montserrat",sans-serif;
+  font-size:clamp(42px,7vw,82px);
+  font-weight:800;
+  line-height:.95;
+  margin:10px 0 20px;
+}
+
+.cover-subtitle{
+  max-width:650px;
+  margin:auto;
+  font-size:13px;
+  line-height:1.8;
+  color:#f5e9d5;
+}
+
+.cover-progress{
+  width:180px;
+  height:2px;
+  background:rgba(255,255,255,.25);
+  margin:35px auto 0;
+  overflow:hidden;
+}
+
+.cover-progress span{
+  display:block;
+  width:100%;
+  height:100%;
+  background:var(--golden);
+  transform-origin:left;
+  animation:progress 3s linear forwards;
+}
+
+@keyframes progress{
+  from{transform:scaleX(0);}
+  to{transform:scaleX(1);}
+}
+
+/* =========================
+   PAGE TRANSITION
+========================= */
+
+.page-transition{
+  position:fixed;
+  inset:0;
+  z-index:99980;
+  background:var(--wine);
+  transform:translateY(100%);
+  pointer-events:none;
+}
+
+.page-transition.active{
+  animation:transitionIn .35s ease forwards;
+}
+
+.page-transition.leave{
+  animation:transitionOut .65s ease forwards;
+}
+
+@keyframes transitionIn{
+  from{transform:translateY(100%);}
+  to{transform:translateY(0);}
+}
+
+@keyframes transitionOut{
+  from{transform:translateY(0);}
+  to{transform:translateY(-100%);}
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:14px 5%;
+
+  background:rgba(232,209,167,.92);
+  backdrop-filter:blur(10px);
+
+  border-bottom:1px solid rgba(68,45,28,.15);
+}
+
+.logo{
+  font-family:"Montserrat",sans-serif;
+  font-weight:800;
+  font-size:16px;
+  letter-spacing:1px;
+}
+
+.logo span{
+  color:var(--wine);
+}
+
+.nav-links{
+  display:flex;
+  gap:24px;
+  list-style:none;
+}
+
+.nav-links a{
+  font-family:"Montserrat",sans-serif;
+  font-size:11px;
+  font-weight:600;
+  text-transform:uppercase;
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  color:var(--wine);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  min-height:100vh;
+  padding:100px 5% 50px;
+
+  display:grid;
+  grid-template-columns:1.5fr .8fr;
+  gap:20px;
+  align-items:stretch;
+}
+
+.hero-image{
+  position:relative;
+ height:490px;
+  overflow:hidden;
+}
+
+.hero-image img{
+  height:100%;
+  transition:.7s;
+}
+
+.hero-image:hover img{
+  transform:scale(1.04);
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    to top,
+    rgba(35,21,12,.78),
+    transparent 60%
+  );
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+
+  padding:35px;
+  color:white;
+}
+
+.hero-overlay .small-title{
+  font-family:"Montserrat",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-size:11px;
+  margin-bottom:8px;
+}
+
+.hero-overlay h1{
+  font-family:"Montserrat",sans-serif;
+  font-weight:800;
+  font-size:clamp(38px,5.5vw,68px);
+  line-height:.95;
+  max-width:650px;
+}
+
+.hero-content{
+  background:var(--cream);
+  padding:45px 32px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  border-left:6px solid var(--olive);
+}
+
+.decorative{
+  font-family:"Allura",cursive;
+  color:var(--wine);
+  font-size:34px;
+  margin-bottom:5px;
+}
+
+.hero-content h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:42px;
+  line-height:1;
+  margin-bottom:20px;
+}
+
+.hero-content p{
+  font-size:13px;
+  margin-bottom:25px;
+}
+
+.hero-btn{
+  display:inline-block;
+  width:fit-content;
+
+  padding:12px 20px;
+
+  background:var(--wine);
+  color:white;
+
+  font-family:"Montserrat",sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
+
+  transition:.3s;
+}
+
+.hero-btn:hover{
+  background:var(--cocoa);
+  transform:translateY(-3px);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+  padding:75px 5%;
+}
+
+.section-label{
+  font-family:"Montserrat",sans-serif;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--olive);
+  margin-bottom:8px;
+}
+
+.section-title{
+  font-family:"Montserrat",sans-serif;
+  font-size:clamp(28px,3.7vw,46px);
+  line-height:1.05;
+  margin-bottom:38px;
+}
+
+/* =========================
+   ANIMASI SECTION
+========================= */
+
+.reveal-section{
+  opacity:0;
+  transform:translateY(35px);
+  transition:
+    opacity .9s ease,
+    transform .9s ease;
+}
+
+.reveal-section.revealed{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================
+   INFORMASI
+========================= */
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.info-card{
+  padding:30px;
+  background:var(--caramel);
+  color:var(--white);
+  min-height:210px;
+  position:relative;
+  overflow:hidden;
+}
+
+.info-card:nth-child(2){
+  background:var(--cocoa);
+}
+
+.info-card:nth-child(3){
+  background:var(--olive);
+}
+
+.info-number{
+  font-family:"Montserrat",sans-serif;
+  font-size:48px;
+  font-weight:800;
+  opacity:.18;
+
+  position:absolute;
+  right:18px;
+  top:8px;
+}
+
+.info-card h3{
+  font-family:"Montserrat",sans-serif;
+  font-size:16px;
+  margin-bottom:12px;
+}
+
+.info-card p{
+  font-size:12px;
+}
+
+/* =========================
+   DAYA TARIK
+========================= */
+
+.attraction{
+  background:var(--cream);
+}
+
+.attraction-grid{
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:20px;
+}
+
+.attraction-main{
+  height:350px;
+  position:relative;
+  overflow:hidden;
+}
+
+.attraction-main img{
+  height:100%;
+}
+
+.attraction-caption{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+
+  padding:30px;
+  color:white;
+
+  background:linear-gradient(
+    transparent,
+    rgba(40,20,10,.85)
+  );
+}
+
+.attraction-caption h3{
+  font-family:"Cormorant Garamond",serif;
+  font-size:38px;
+}
+
+.attraction-caption p{
+  font-size:12px;
+}
+
+.attraction-side{
+  display:grid;
+  grid-template-rows: 150px 150px;
+  gap:12px;
+  align-content:start;
+  width:100%;
+}
+
+.attraction-side{
+  display:grid;
+  grid-template-rows:165px 165px;
+  gap:12px;
+  align-content:start;
+  width:100%;
+}
+
+.side-card{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  height:173px;
+  border-radius:8px;
+}
+
+.side-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.side-card span{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:8px 12px;
+  color:white;
+  font-family:"Montserrat",sans-serif;
+  font-size:10px;
+  font-weight:700;
+  background:linear-gradient(
+    transparent,
+    rgba(40,20,10,.8)
+  );
+}
+
+/* =========================
+   AKTIVITAS
+========================= */
+
+.activity-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.activity-card{
+  background:var(--white);
+  overflow:hidden;
+}
+
+.activity-card img{
+  height:190px;
+}
+
+.activity-text{
+  padding:18px;
+}
+
+.activity-text h3{
+  font-family:"Montserrat",sans-serif;
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+.activity-text p{
+  font-size:11px;
+}
+
+/* =========================
+   UMKM
+========================= */
+
+.umkm{
+  background:var(--wine);
+  color:var(--white);
+}
+
+.umkm .section-label{
+  color:var(--golden);
+}
+
+.umkm-layout{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:40px;
+  align-items:center;
+}
+
+.umkm h2{
+  font-family:"Montserrat",sans-serif;
+  font-size:clamp(32px,4.5vw,55px);
+  line-height:1;
+  margin-bottom:20px;
+}
+
+.umkm p{
+  font-size:13px;
+}
+
+.food-image{
+  height:380px;
+  overflow:hidden;
+}
+
+.food-image img{
+  height:100%;
+  transition:3s;
+}
+
+.food-image:hover img{
+  transform:scale(1.05);
+}
+
+/* =========================
+   INFORMASI WISATA
+========================= */
+
+.travel-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:17px;
+}
+
+.travel-box{
+  border:1px solid rgba(68,45,28,.25);
+  padding:25px;
+  background:rgba(255,255,255,.2);
+}
+
+.travel-box h3{
+  font-family:"Montserrat",sans-serif;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.travel-box p{
+  font-size:12px;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery{
+  background:var(--cream);
+}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr .8fr;
+  grid-template-rows:190px 190px;
+  gap:12px;
+  width:100%;
+  max-width:1100px;
+  margin:auto;
+}
+
+.gallery-item{
+  overflow:hidden;
+  width:100%;
+  height:100%;
+  border-radius:8px;
+}
+
+.gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.gallery-item:first-child video{
+  width:94%;
+  height:97%;
+  margin:3% auto;
+  display:block;
+  object-fit:contain;
+  border-radius:8px;
+}
+
+.gallery-item:hover img,
+.gallery-item:hover video{
+  transform:scale(1.04);
+  transition:transform .4s ease;
+}
+
+.gallery-item:first-child{
+  grid-row:span 2;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:var(--cocoa);
+  color:var(--white);
+  text-align:center;
+  padding:50px 20px;
+}
+
+footer .footer-brand{
+  font-family:"Allura",cursive;
+  font-size:40px;
+  color:var(--golden);
+}
+
+footer p{
+  font-size:11px;
+  opacity:.7;
+  margin-top:8px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .hero-image{
+    min-height:300px;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .attraction-grid{
+    grid-template-columns:1fr;
+  }
+
+  .attraction-side{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:170px;
+  }
+
+  .activity-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .umkm-layout{
+    grid-template-columns:1fr;
+  }
+
+  .travel-info{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  section{
+    padding:60px 5%;
+  }
+
+  .hero{
+    padding:85px 5% 25px;
+  }
+
+  .hero-image{
+    min-height:200px;
+  }
+
+  .hero-overlay{
+    padding:25px;
+  }
+
+  .hero-content{
+    padding:35px 25px;
+  }
+
+  .hero-content h2{
+    font-size:36px;
+  }
+
+  .attraction-side{
+    grid-template-columns:1fr;
+    grid-template-rows:190px 190px;
+  }
+
+  .activity-grid{
+    grid-template-columns:1fr;
+  }
+
+  .gallery-grid{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:200px 170px 170px;
+  }
+
+  .gallery-item:first-child{
+    grid-column:span 2;
+    grid-row:auto;
+  }
+
+  .cover-title{
+    font-size:43px;
+  }
+
+  .cover-script{
+    font-size:40px;
+  }
+
+  .cover-subtitle{
+    font-size:11px;
+  }
+}
+
+/* =========================
+   BACKSOUND MUSIC
+========================= */
+
+.music-button{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:9999;
+
+  width:45px;
+  height:45px;
+
+  border:none;
+  border-radius:50%;
+
+  background:var(--wine);
+  color:white;
+
+  font-size:18px;
+  cursor:pointer;
+
+  box-shadow:0 4px 15px rgba(0,0,0,.25);
+
+  transition:.3s ease;
+}
+
+.music-button:hover{
+  transform:scale(1.08);
+  background:var(--cocoa);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKSOUND WEBSITE -->
+<audio id="backgroundMusic" loop>
+  <source src="INSTRUMENTAL MUSIK GENDING JAWA.mp3" type="audio/mpeg">
+  Browser kamu tidak mendukung audio.
+</audio>
+
+<button id="musicButton" class="music-button" aria-label="Kontrol musik">
+  🔊
+</button>
+
+<!-- =========================
+     COVER PEMBUKA 6 DETIK
+========================= -->
+
+<div class="intro-cover" id="introCover">
+
+  <div class="cover-content">
+
+    <div class="cover-small">
+      Wisata Sejarah · Tuban
+    </div>
+
+    <div class="cover-script">
+      Jejak ulama
+    </div>
+
+    <h1 class="cover-title">
+      WARISAN UNTUK GENERASI
+    </h1>
+
+    <p class="cover-subtitle">
+      Dengarkan deburan ombak pantai utara dan hidupkan kembali
+      kekuatan iman dengan meneladani perjuangan sang pelopor
+      Islam Nusantara.
+    </p>
+
+    <div class="cover-progress">
+      <span></span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- =========================
+     TRANSISI
+========================= -->
+
+<div class="page-transition" id="pageTransition"></div>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+  <div class="logo">
+    JEJAK <span>ULAMA</span>
+  </div>
+
+  <ul class="nav-links">
+
+    <li>
+      <a href="#home">home</a>
+    </li>
+
+    <li>
+      <a href="#destinasi">Destinasi</a>
+    </li>
+
+    <li>
+      <a href="#daya-tarik">Daya Tarik</a>
+    </li>
+
+    <li>
+      <a href="#aktivitas">Aktivitas</a>
+    </li>
+
+    <li>
+      <a href="#umkm">Kuliner</a>
+    </li>
+
+    <li>
+      <a href="#informasiwisata">Informasi</a>
+    </li>
+
+    <li>
+      <a href="#gallery">Gallery</a>
+    </li>
+
+  </ul>
+
+</nav>
+
+<!-- =========================
+     HERO
+========================= -->
+<div id="home">
+<header class="hero">
+
+  <div class="hero-image">
+
+    <img
+      src="sunan.jpeg"
+      alt="Makam Sunan Bonang">
+
+    <div class="hero-overlay">
+
+      <div class="small-title">
+        Wisata Sejarah · Tuban
+      </div>
+
+      <h1>
+        JEJAK<br>
+        SUNAN BONANG
+      </h1>
+
+    </div>
+
+  </div>
+
+  <div class="hero-content">
+
+    <div class="decorative">
+      Jejak ulama
+    </div>
+
+    <h2>
+      Warisan untuk generasi.
+    </h2>
+
+    <p>
+      Dengarkan deburan ombak pantai utara dan hidupkan kembali
+      kekuatan iman dengan meneladani perjuangan sang pelopor
+      Islam Nusantara.
+    </p>
+
+    <a href="#destinasi" class="hero-btn">
+      JELAJAHI DESTINASI →
+    </a>
+
+  </div>
+
+</header>
+</div>
+
+<!-- =========================
+     INFORMASI SINGKAT
+========================= -->
+
+<section id="destinasi" class="reveal-section">
+
+  <div class="section-label">
+    Tentang Destinasi
+  </div>
+
+  <h2 class="section-title">
+    Ruang untuk mengenal<br>
+    sejarah dan keteladanan.
+  </h2>
+
+  <div class="info-grid">
+
+    <div class="info-card">
+
+      <div class="info-number">
+        01
+      </div>
+
+      <h3>
+        Warisan Sejarah
+      </h3>
+
+      <p>
+        Makam Sunan Bonang merupakan salah satu tempat
+        bersejarah yang berkaitan dengan perjalanan dakwah
+        Islam di tanah Jawa.
+      </p>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <div class="info-number">
+        02
+      </div>
+
+      <h3>
+        Nilai Keislaman
+      </h3>
+
+      <p>
+        Menjadi ruang untuk mengenang perjuangan dan
+        keteladanan Sunan Bonang dalam menyebarkan nilai
+        Islam melalui pendekatan budaya.
+      </p>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <div class="info-number">
+        03
+      </div>
+
+      <h3>
+        Identitas Tuban
+      </h3>
+
+      <p>
+        Destinasi ini menjadi bagian dari kekayaan sejarah
+        dan budaya Kabupaten Tuban yang masih hidup hingga
+        sekarang.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     DAYA TARIK
+========================= -->
+
+<section class="attraction reveal-section" id="daya-tarik">
+
+  <div class="section-label">
+    Daya Tarik
+  </div>
+
+  <h2 class="section-title">
+    Sejarah yang masih<br>
+    terasa hingga kini.
+  </h2>
+
+  <div class="attraction-grid">
+
+    <div class="attraction-main">
+
+      <img
+        src="sunan bonang.jpeg"
+        alt="Bangunan bersejarah">
+
+      <div class="attraction-caption">
+
+        <h3>
+          Jejak Sang Wali
+        </h3>
+
+        <p>
+          Menelusuri kisah perjalanan dakwah Sunan Bonang
+          di tanah Jawa.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="attraction-side">
+
+      <div class="side-card">
+
+        <img
+          src="apa.jpeg"
+          alt="Arsitektur">
+
+        <span>
+          Arsitektur & Tradisi
+        </span>
+
+      </div>
+
+
+      <div class="side-card">
+
+        <img
+          src="bangun.jpeg"
+          alt="Budaya">
+
+        <span>
+          Warisan Budaya
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     AKTIVITAS
+========================= -->
+
+<section id="aktivitas" class="reveal-section">
+
+  <div class="section-label">
+    Aktivitas
+  </div>
+
+  <h2 class="section-title">
+    Datang, mengenal,<br>
+    dan menghayati.
+  </h2>
+
+  <div class="activity-grid">
+
+    <div class="activity-card">
+
+      <img
+        src="peziarah.jpeg"
+        alt="Ziarah">
+
+      <div class="activity-text">
+
+        <h3>
+          Ziarah
+        </h3>
+
+        <p>
+          Mengenang perjuangan dan keteladanan Sunan Bonang.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="activity-card">
+
+      <img
+        src="eks.jpeg"
+        alt="Eksplorasi">
+
+      <div class="activity-text">
+
+        <h3>
+          Eksplorasi
+        </h3>
+
+        <p>
+          Menjelajahi kawasan bersejarah di sekitar destinasi.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="activity-card">
+
+      <img
+        src="sunan bonang.jpeg"
+        alt="Fotografi">
+
+      <div class="activity-text">
+
+        <h3>
+          Dokumentasi
+        </h3>
+
+        <p>
+          Mengabadikan suasana dan arsitektur khas kawasan.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="activity-card">
+
+      <img
+        src="warisan.jpeg"
+        alt="Wisata budaya">
+
+      <div class="activity-text">
+
+        <h3>
+          Wisata Budaya
+        </h3>
+
+        <p>
+          Mengenal tradisi dan kehidupan masyarakat setempat.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     KULINER / UMKM
+========================= -->
+
+<section class="umkm reveal-section" id="umkm">
+
+  <div class="umkm-layout">
+
+    <div>
+
+      <div class="section-label">
+        Kuliner & UMKM
+      </div>
+
+      <h2>
+        Rasa lokal,<br>
+        cerita yang tinggal.
+      </h2>
+
+      <p>
+        Perjalanan wisata tidak berhenti pada sejarah.
+        Kenali pula produk lokal dan kuliner khas masyarakat
+        sekitar yang menjadi bagian dari identitas kawasan.
+      </p>
+
+    </div>
+
+
+    <div class="food-image">
+
+      <img
+        src="makan.jpeg"
+        alt="Kuliner lokal">
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     INFORMASI WISATA
+========================= -->
+
+<section id="informasiwisata" class="reveal-section">
+
+  <div class="section-label">
+    Informasi Wisata
+  </div>
+
+  <h2 class="section-title">
+    Sebelum berangkat,<br>
+    siapkan perjalananmu.
+  </h2>
+
+  <div class="travel-info">
+
+    <div class="travel-box">
+
+      <h3>
+        📍 Lokasi
+      </h3>
+
+      <p>
+        Tuban, Jawa Timur, Indonesia.
+      </p>
+
+    </div>
+
+
+    <div class="travel-box">
+
+      <h3>
+        🕐 Waktu Berkunjung
+      </h3>
+
+      <p>
+        Sesuaikan dengan jadwal kunjungan dan kondisi
+        kawasan wisata.
+      </p>
+
+    </div>
+
+
+    <div class="travel-box">
+
+      <h3>
+        👕 Etika Berkunjung
+      </h3>
+
+      <p>
+        Kenakan pakaian yang sopan dan jaga ketenangan
+        selama berada di kawasan makam.
+      </p>
+
+    </div>
+
+
+    <div class="travel-box">
+
+      <h3>
+        🗺️ Arah Lokasi
+      </h3>
+
+      <p>
+        Gunakan peta digital untuk mendapatkan rute
+        perjalanan menuju lokasi.
+      </p>
+
+    </div>
+
+  </div>
+
+  <br><br>
+
+  <a
+    href="https://maps.app.goo.gl/Q3uCFiMUsVQMWBP46"
+    target="_blank"
+    class="hero-btn"
+  >
+    BUKA GOOGLE MAPS →
+  </a>
+
+</section>
+
+<!-- =========================
+     GALLERY
+========================= -->
+
+<section class="gallery reveal-section" id="gallery">
+
+  <div class="section-label">
+    Gallery
+  </div>
+
+  <h2 class="section-title">
+    Potongan perjalanan.
+  </h2>
+
+  <div class="gallery-grid">
+
+    <div class="gallery-item">
+
+      <video
+        src="tiktok.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        controls
+        aria-label="Gallery 1">
+      </video>
+
+    </div>
+
+
+    <div class="gallery-item">
+
+      <img
+        src="bangun.jpeg"
+        alt="Gallery 2">
+
+    </div>
+
+
+    <div class="gallery-item">
+
+      <img
+        src="depan.jpg"
+        alt="Gallery 3">
+
+    </div>
+
+
+    <div class="gallery-item">
+
+      <img
+        src="tokoh.jpeg"
+        alt="Gallery 4">
+
+    </div>
+
+
+    <div class="gallery-item">
+
+      <img
+        src="tradisi.jpeg"
+        alt="Gallery 5">
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+  <div class="footer-brand">
+    Jejak Ulama
+  </div>
+
+  <p>
+    Warisan untuk generasi.
+  </p>
+
+  <p>
+    © 2026 Jejak Ulama · Wisata Sejarah & Budaya
+  </p>
+
+</footer>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =========================
+     BACKSOUND MUSIC
+  ========================= */
+
+  const music = document.getElementById("backgroundMusic");
+  const musicButton = document.getElementById("musicButton");
+
+  let musicPlaying = false;
+
+  // Mencoba menjalankan musik
+  music.volume = 0.35;
+
+  document.addEventListener("click", () => {
+    if(!musicPlaying){
+      music.play()
+        .then(() => {
+          musicPlaying = true;
+          musicButton.textContent = "🔊";
+        })
+        .catch(() => {});
+    }
+  }, { once:true });
+
+  // Tombol musik
+  musicButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    if(music.paused){
+      music.play();
+      musicButton.textContent = "🔊";
+      musicPlaying = true;
+    }else{
+      music.pause();
+      musicButton.textContent = "🔇";
+      musicPlaying = false;
+    }
+  });
+
+  const intro =
+    document.getElementById("introCover");
+
+  const transition =
+    document.getElementById("pageTransition");
+
+
+  /* =========================
+     COVER 6 DETIK
+  ========================= */
+
+  setTimeout(() => {
+
+    intro.classList.add("hide");
+
+  }, 3000);
+
+
+  /* =========================
+     TRANSISI NAVIGASI
+  ========================= */
+
+  const links =
+    document.querySelectorAll(
+      'a[href^="#"]:not([href="#"])'
+    );
+
+
+  links.forEach(link => {
+
+    link.addEventListener("click", event => {
+
+      const targetId =
+        link.getAttribute("href");
+
+      const target =
+        document.querySelector(targetId);
+
+      if(!target) return;
+
+      event.preventDefault();
+
+
+      transition.classList.remove("leave");
+
+      transition.classList.add("active");
+
+
+      setTimeout(() => {
+
+        target.scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
+
+      },300);
+
+
+      setTimeout(() => {
+
+        transition.classList.add("leave");
+
+      },700);
+
+
+      setTimeout(() => {
+
+        transition.classList.remove(
+          "active",
+          "leave"
+        );
+
+      },1300);
+
+    });
+
+  });
+
+
+  /* =========================
+     ANIMASI SECTION
+  ========================= */
+
+  const sections =
+    document.querySelectorAll(
+      ".reveal-section"
+    );
+
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if(entry.isIntersecting){
+
+            entry.target.classList.add(
+              "revealed"
+            );
+
+          }
+
+        });
+
+      },
+      {
+        threshold:.12
+      }
+    );
+
+
+  sections.forEach(section => {
+
+    observer.observe(section);
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
